@@ -24,13 +24,10 @@ href='/stylesheets/smartphone.css' />
 
 </nav>
 
-
+<section class="main" id="s1">
 
 <section class="main" id="s1">
-<div><table>
-	<tr><td><a href="quizes/1"> Capital de Italia</a></tr></td>
-	<tr><td><a href="quizes/2"> Capital de Portugal</a></tr></td>
-</div>
+<div><%- body %></div>
 </section>
 </div>
 
