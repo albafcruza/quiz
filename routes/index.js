@@ -11,5 +11,6 @@ res.render('index', { title: 'Quiz' });
 
 router.get('/quizes/question', quizController.question);
 router.get('/quizes/answer', quizController.answer);
+router.get('/creditos/author', quizController.author);
 
 module.exports = router;

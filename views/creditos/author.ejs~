@@ -1,0 +1,7 @@
+<head>
+<title><%= titulo %></title>
+</head>
+
+<h1><%= titulo %></h1>
+<img src="/images/Almudena.jpg" 	 alt="Imagen no disponible. Imagen de una flor"
+	     width="100" height="100" align="left">
