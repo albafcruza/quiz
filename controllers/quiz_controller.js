@@ -83,6 +83,14 @@ req.quiz // save: guarda campos pregunta y respuesta en DB
 }
 );
 };
+
+// DELETE /quizes/:id
+exports.destroy = function(req, res) {
+req.quiz.destroy().then( function() {
+res.redirect('/quizes');
+}).catch(function(error){next(error)});
+};
+
 // GET /creditos/author
 exports.author = function(req, res) {
 	res.render('creditos/author', {titulo: 'Alba Fernández y Almudena Garbayo'});
