@@ -22,11 +22,16 @@
 
 
 	<section class="main" id="s1">
+	 <% if (errors.length) { %>
+		<span id='ErrorMsgs'>
+			Corregir errores:<br/>
+			<% for (var i in errors) { %>
+			<span> <%= errors[i].message %> </span><br/>
+		<% } %>
+		</span>
+	<% } %>	
 		<div>
-			<table>
-				<tr><td><a href="quizes/1"> Capital de Italia</a></tr></td>
-				<tr><td><a href="quizes/2"> Capital de Portugal</a></tr></td>
-			</table>
+		<%- body %>
 		</div>
 	</section>
 
