@@ -4,7 +4,7 @@ var router = express.Router();
 
 var quizController = require('../controllers/quiz_controller');
 var commentController= require('../controllers/comment_controller');
-
+var sessionController = require('../controllers/session_controller');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -16,6 +16,13 @@ router.get('/', function(req, res) {
 router.param('quizId', quizController.load);
 
 
+//DEFINICION RUTAS DE SESION
+router.get('/login', sessionController.new); //Formulario de login
+router.post('/login',sessionController.create); //Crear sesion nueva
+router.get('/login',sessionController.destroy); //Destruir sesion
+
+//DEFINICION RUTAS DR /QUIZES
+
 router.get('/quizes', 			quizController.index);
 router.get('/quizes/:quizId(\\d+)',	 quizController.show);
 router.get('/quizes/:quizId(\\d+)/answer', quizController.answer);
@@ -25,8 +32,9 @@ router.get('/quizes/:quizId(\\d+)/edit', quizController.edit);
 router.put('/quizes/:quizId(\\d+)', quizController.update);
 router.delete('/quizes/:quizId(\\d+)', quizController.destroy);
 
-router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new) //Accede al formulario de crear comentariom asociado a cada quizId
-router.post('/quizes/:quizId(\\d+)/comments', commentController.create) //Crea una nueva entrada en la tabla comments asociada a quizId en Quiz
+router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new); //Accede al formulario de crear comentariom asociado a cada quizId
+router.post('/quizes/:quizId(\\d+)/comments', commentController.create); //Crea una nueva entrada en la tabla comments asociada a quizId en Quiz
+
 
 
 
