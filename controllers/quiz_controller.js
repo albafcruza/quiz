@@ -1,15 +1,24 @@
 var models = require('../models/models.js');
 // Autoload :id
 exports.load = function(req, res, next, quizId) {
-models.Quiz.find(quizId).then(
-function(quiz) {
-if (quiz) {
-req.quiz = quiz;
-next();
-} else{next(new Error('No existe quizId=' + quizId))}
-}
-).catch(function(error){next(error)});
+	models.Quiz.find({
+		where: { 
+		   id: Number(quizId) //Indica buscar el quiz identificado por quizId
+		},
+		include: [{
+			model: models.Comment //Ademas con este, solicita cargar en la propiendad quiz.Comments los comentarios asoaciados al quiz a traves de la relacion 1-N entre Quiz y Comment
+		}]
+	}).then(function(quiz){
+		  
+		if (quiz) {
+			req.quiz = quiz;
+			next();
+		} else{
+			next(new Error('No existe quizId=' + quizId))}
+		}
+	).catch(function(error){next(error)});
 };
+
 // GET /quizes
 exports.index = function(req, res) {
 models.Quiz.findAll().then(

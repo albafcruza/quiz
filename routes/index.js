@@ -3,6 +3,8 @@ var express = require('express');
 var router = express.Router();
 
 var quizController = require('../controllers/quiz_controller');
+var commentController= require('../controllers/comment_controller');
+
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -22,6 +24,13 @@ router.post('/quizes/create', 		quizController.create);
 router.get('/quizes/:quizId(\\d+)/edit', quizController.edit);
 router.put('/quizes/:quizId(\\d+)', quizController.update);
 router.delete('/quizes/:quizId(\\d+)', quizController.destroy);
+
+router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new) //Accede al formulario de crear comentariom asociado a cada quizId
+router.post('/quizes/:quizId(\\d+)/comments', commentController.create) //Crea una nueva entrada en la tabla comments asociada a quizId en Quiz
+
+
+
+
 router.get('/creditos/author',		 quizController.author);
 
 module.exports = router;

@@ -32,8 +32,6 @@ var Quiz = sequelize.import(quiz_path);
 var comment_path = path.join(__dirname,'comment');
 var Comment = sequelize.import(comment_path);
 
-//TODO ESTO INDICA RELACION 1aN, por BELONGSTO y a su vez HASMANY
-
 Comment.belongsTo(Quiz); //Indica que los comentarios pertenecen a los quizes
 Quiz.hasMany(Comment);   //Indica que puede contener muchos comentarios
 
