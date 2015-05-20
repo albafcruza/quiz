@@ -18,8 +18,8 @@ router.param('quizId', quizController.load);
 
 //DEFINICION RUTAS DE SESION
 router.get('/login', sessionController.new); //Formulario de login
-router.post('/login',sessionController.create); //Crear sesion nueva
-router.get('/logout',sessionController.destroy); //Destruir sesion
+router.post('/login', sessionController.create); //Crear sesion nueva
+router.get('/logout', sessionController.destroy); //Destruir sesion
 
 //DEFINICION RUTAS DR /QUIZES
 

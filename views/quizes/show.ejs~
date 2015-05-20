@@ -4,3 +4,9 @@
 <input type="submit" value="Enviar">
 <input type="submit" value="Borrar pregunta">
 </form>
+
+<p><a href="/quizes/<%= quiz.id %>/comments/new"><button>Nuevo comentario</button></a></p>
+<p><strong>Comentarios:</strong></p>
+<%for(index in quiz.Comments){%>
+<p>- <%=quiz.Comments[index].texto%></p>
+<%}%>
