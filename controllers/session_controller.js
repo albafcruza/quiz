@@ -1,4 +1,14 @@
 
+// MW de autorización de accesos HTTP restringidos, para solo dejar continuar al usuario si esta autenticado para ciertas operaciones borrar, editar...
+exports.loginRequired = function(req, res, next){
+	if (req.session.user) {
+		next();
+	} else {
+		res.redirect('/login');
+	}
+};
+
+
 // Get /login FORMULARIO DE LOGIN
 
 exports.new = function(req,res){
@@ -42,4 +52,7 @@ exports.destroy = function(req, res) {
 	delete req.session.user;
 	res.redirect(req.session.redir.toString()); // redirect a path anterior a login
 };
+
+
+
 

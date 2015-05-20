@@ -19,26 +19,29 @@ router.param('quizId', quizController.load);
 //DEFINICION RUTAS DE SESION
 router.get('/login', sessionController.new); //Formulario de login
 router.post('/login',sessionController.create); //Crear sesion nueva
-router.get('/login',sessionController.destroy); //Destruir sesion
+router.get('/logout',sessionController.destroy); //Destruir sesion
 
 //DEFINICION RUTAS DR /QUIZES
 
 router.get('/quizes', 			quizController.index);
 router.get('/quizes/:quizId(\\d+)',	 quizController.show);
 router.get('/quizes/:quizId(\\d+)/answer', quizController.answer);
-router.get('/quizes/new', 		quizController.new);
-router.post('/quizes/create', 		quizController.create);
-router.get('/quizes/:quizId(\\d+)/edit', quizController.edit);
-router.put('/quizes/:quizId(\\d+)', quizController.update);
-router.delete('/quizes/:quizId(\\d+)', quizController.destroy);
 
-router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new) //Accede al formulario de crear comentariom asociado a cada quizId
-router.post('/quizes/:quizId(\\d+)/comments', commentController.create) //Crea una nueva entrada en la tabla comments asociada a quizId en Quiz
-ro
+//AÑADIMOS .SESSION... DELANTE DE CONTROLADORES DE ACCEDOS QUE NECESITEN AUTENTICACION, IMPIDE QUE LOS USUARIOS SIN SESION CREEN EDITEN O BORREN
+
+router.get('/quizes/new', 		sessionController.loginRequired, quizController.new);
+router.post('/quizes/create', 		sessionController.loginRequired, quizController.create);
+router.get('/quizes/:quizId(\\d+)/edit', sessionController.loginRequired,  quizController.edit);
+router.put('/quizes/:quizId(\\d+)', sessionController.loginRequired,  quizController.update);
+router.delete('/quizes/:quizId(\\d+)', sessionController.loginRequired, quizController.destroy);
+
+router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new); //Accede al formulario de crear comentariom asociado a cada quizId
+router.post('/quizes/:quizId(\\d+)/comments', commentController.create); //Crea una nueva entrada en la tabla comments asociada a quizId en Quiz
 
 
 
 
-router.get('/creditos/author',		 quizController.author);
+
+router.get('/creditos/author', quizController.author);
 
 module.exports = router;
