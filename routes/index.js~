@@ -14,7 +14,7 @@ router.get('/', function(req, res) {
 
 //Autoload de comandos con quizId
 router.param('quizId', quizController.load);
-
+router.param('commentId', commentController.load);
 
 //DEFINICION RUTAS DE SESION
 router.get('/login', sessionController.new); //Formulario de login
@@ -37,7 +37,7 @@ router.delete('/quizes/:quizId(\\d+)', sessionController.loginRequired, quizCont
 
 router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new); //Accede al formulario de crear comentariom asociado a cada quizId
 router.post('/quizes/:quizId(\\d+)/comments', commentController.create); //Crea una nueva entrada en la tabla comments asociada a quizId en Quiz
-
+router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish', sessionController.loginRequired, commentController.publish); //Accede al formulario de crear comentariom asociado a cada quizId
 
 
 
