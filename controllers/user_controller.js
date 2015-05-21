@@ -3,6 +3,22 @@
 var models = require('../models/models.js');
 
 
+// MW que permite acciones solamente si el usuario objeto corresponde con el usuario logeado o si es cuenta admin
+exports.ownershipRequired = function(req, res, next){
+	var objUser = req.user.id;
+	var logUser = req.session.user.id;
+	var isAdmin = req.session.user.isAdmin;
+
+	if (isAdmin || objUser === logUser) {// PUEDE MODIFICAR, EDITAR/DESTRUIR LA CUENTA SI ERES ADMINISTRADOR O EL PROP DE LA CUENTA
+		next();
+	} else {
+		res.redirect('/');
+	}
+};
+
+
+
+
 // Autoload :id
 exports.load = function(req, res, next, userId) {
 	models.User.find({

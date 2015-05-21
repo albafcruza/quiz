@@ -23,12 +23,13 @@ router.post('/login', sessionController.create); //Crear sesion nueva
 router.get('/logout', sessionController.destroy); //Destruir sesion
 
 //DEFINICION RUTAS DE CUENTA
+//OWNERSHIPREQUIERED, COMPRUEBA SI EL USUARIO QUE ACCEDE TIENE DERECHOS PARA REALIZAR LA OPERACION
 
 router.get('/user', userController.new); 
 router.post('/user', userController.create); //REGISTRAR USUARIO
-router.get('/user/:userId(\\d+)/edit', sessionController.loginRequired, userController.edit);
-router.put('/user/:userId(\\d+)', sessionController.loginRequired, userController.update);
-router.delete('/user/:userId(\\d+)', sessionController.loginRequired, userController.destroy);
+router.get('/user/:userId(\\d+)/edit', sessionController.loginRequired, userController.ownershipRequired, userController.edit);
+router.put('/user/:userId(\\d+)', sessionController.loginRequired, userController.ownershipRequired,  userController.update);
+router.delete('/user/:userId(\\d+)', sessionController.loginRequired, userController.ownershipRequired, userController.destroy);
 
 
 //DEFINICION RUTAS DR /QUIZES
@@ -41,13 +42,17 @@ router.get('/quizes/:quizId(\\d+)/answer', quizController.answer);
 
 router.get('/quizes/new', 		sessionController.loginRequired, quizController.new);
 router.post('/quizes/create', 		sessionController.loginRequired, quizController.create);
-router.get('/quizes/:quizId(\\d+)/edit', sessionController.loginRequired,  quizController.edit);
-router.put('/quizes/:quizId(\\d+)', sessionController.loginRequired,  quizController.update);
-router.delete('/quizes/:quizId(\\d+)', sessionController.loginRequired, quizController.destroy);
+
+router.get('/quizes/:quizId(\\d+)/edit', sessionController.loginRequired, quizController.ownershipRequired,  quizController.edit);
+router.put('/quizes/:quizId(\\d+)', sessionController.loginRequired, quizController.ownershipRequired,  quizController.update);
+router.delete('/quizes/:quizId(\\d+)', sessionController.loginRequired, quizController.ownershipRequired, quizController.destroy);
+
+//COMENTARIOS
+
 
 router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new); //Accede al formulario de crear comentariom asociado a cada quizId
 router.post('/quizes/:quizId(\\d+)/comments', commentController.create); //Crea una nueva entrada en la tabla comments asociada a quizId en Quiz
-router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish', sessionController.loginRequired, commentController.publish); //Accede al formulario de crear comentariom asociado a cada quizId
+router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish', sessionController.loginRequired, commentController.ownershipRequired,  commentController.publish); //Accede al formulario de crear comentariom asociado a cada quizId
 
 
 
