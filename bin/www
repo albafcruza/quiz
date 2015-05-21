@@ -6,7 +6,11 @@ var https = require("https");
 
 var options = {
 	key: fs.readFileSync('certs/quiz-2015-key.pem').toString(),
+<<<<<<< HEAD
 	cert: fs.readFileSync('certs/quiz-2015-cert.pem').toString()
+=======
+	cert: fs.readFileSync('certs/quiz-2015-key.pem').toString()
+>>>>>>> 21b15b8b81d006423572c3ead7dc8927c89fbad8
 };
 
 app.set('port', process.env.PORT || 3000);
