@@ -32,12 +32,21 @@ var Quiz = sequelize.import(quiz_path);
 var comment_path = path.join(__dirname,'comment');
 var Comment = sequelize.import(comment_path);
 
+var user_path = path.join(__dirname,'user');
+var User = sequelize.import(user_path);
+
+//TODO ESTO INDICA RELACION 1aN, por BELONGSTO y a su vez HASMANY
+
 Comment.belongsTo(Quiz); //Indica que los comentarios pertenecen a los quizes
 Quiz.hasMany(Comment);   //Indica que puede contener muchos comentarios
+
+Quiz.belongsTo(User); //Indica que los comentarios pertenecen a los quizes
+User.hasMany(Quiz);
 
 
 exports.Quiz = Quiz; // exportar tabla Quiz
 exports.Comment = Comment; // exportar tabla Comment
+exports.User = User;
 
 // sequelize.sync() inicializa tabla de preguntas en DB
 sequelize.sync().then(function() {
