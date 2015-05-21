@@ -54,6 +54,7 @@ res.render('quizes/new', {quiz: quiz, errors: []});
 };
 // POST /quizes/create
 exports.create = function(req, res) {
+	req.body.quiz.UserId = req.session.user.id;// SE AÑADE EL CAMPO USER ID GUARDADO EN LA SESIONA L OBJETO REQ.BODY.QUIZ DEL FORMULARIO DE CREACION DE QUIZ3S
 var quiz = models.Quiz.build( req.body.quiz );
 quiz
 .validate()
@@ -63,7 +64,7 @@ if (err) {
 res.render('quizes/new', {quiz: quiz, errors: err.errors});
 } else {
 quiz // save: guarda en DB campos pregunta y respuesta de quiz
-.save({fields: ["pregunta", "respuesta"]})
+.save({fields: ["pregunta", "respuesta", "UserId"]})//DEBE GUARDARSE EL CAMPO USER ID DE CADA QUIZ
 .then( function(){ res.redirect('/quizes')})
 } // res.redirect: Redirección HTTP a lista de preguntas
 }
