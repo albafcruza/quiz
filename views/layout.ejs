@@ -27,12 +27,15 @@
 		</header>
 		<nav class="main" id="n1" role="navigation">
 			<span><a href="/">Inicio</a></span>
-			<span><a href="/quizes">Preguntas</a></span>
+			<span><a href="/quizes">Preguntas</a></span>			
 			<span><a href="/creditos/author">Créditos</a></span>
+			 <%if(session.user){%>
+     				 <span><a href="/user/<%=session.user.id%>/quizes">Mis Preguntas</a></span>
+  			  <%}%>
+
+
 
 		</nav>
-
-
 
 	<section class="main" id="s1">
 	 <% if (errors.length) { %>

@@ -1,5 +1,6 @@
 
 var express = require('express');
+var multer = require('multer');
 var router = express.Router();
 
 var quizController = require('../controllers/quiz_controller');
@@ -30,7 +31,7 @@ router.post('/user', userController.create); //REGISTRAR USUARIO
 router.get('/user/:userId(\\d+)/edit', sessionController.loginRequired, userController.ownershipRequired, userController.edit);
 router.put('/user/:userId(\\d+)', sessionController.loginRequired, userController.ownershipRequired,  userController.update);
 router.delete('/user/:userId(\\d+)', sessionController.loginRequired, userController.ownershipRequired, userController.destroy);
-
+router.get('/user/:userId(\\d+)/quizes', quizController.index);
 
 //DEFINICION RUTAS DR /QUIZES
 
@@ -41,18 +42,19 @@ router.get('/quizes/:quizId(\\d+)/answer', quizController.answer);
 //AÑADIMOS .SESSION... DELANTE DE CONTROLADORES DE ACCEDOS QUE NECESITEN AUTENTICACION, IMPIDE QUE LOS USUARIOS SIN SESION CREEN EDITEN O BORREN
 
 router.get('/quizes/new', 		sessionController.loginRequired, quizController.new);
-router.post('/quizes/create', 		sessionController.loginRequired, quizController.create);
+router.post('/quizes/create', sessionController.loginRequired, multer({ dest: './public/media/'}), quizController.create);
 
 router.get('/quizes/:quizId(\\d+)/edit', sessionController.loginRequired, quizController.ownershipRequired,  quizController.edit);
-router.put('/quizes/:quizId(\\d+)', sessionController.loginRequired, quizController.ownershipRequired,  quizController.update);
+router.put('/quizes/:quizId(\\d+)', sessionController.loginRequired,  quizController.ownershipRequired, multer({ dest: './public/media/'}), quizController.update);
 router.delete('/quizes/:quizId(\\d+)', sessionController.loginRequired, quizController.ownershipRequired, quizController.destroy);
+
 
 //COMENTARIOS
 
 
 router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new); //Accede al formulario de crear comentariom asociado a cada quizId
 router.post('/quizes/:quizId(\\d+)/comments', commentController.create); //Crea una nueva entrada en la tabla comments asociada a quizId en Quiz
-router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish', sessionController.loginRequired, commentController.publish); //Accede al formulario de crear comentariom asociado a cada quizId
+router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish', sessionController.loginRequired, commentController.ownershipRequired,  commentController.publish); //Accede al formulario de crear comentariom asociado a cada quizId
 
 
 

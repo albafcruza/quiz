@@ -10,8 +10,11 @@ return sequelize.define('Quiz',
 	respuesta: {
 			type:DataTypes.STRING,
 			validate:{notEmpty: {msg :"->Falta respuesta"}}
+		},
+
+	image: {
+		type: DataTypes.STRING //NUEVO CAMPO GUARDA EL NOMBRE DEL FICHERO EN EL DIRECTORIO PUBLIC/MEDIA
 		}
-	
 	}
-	);
+   );
 }
